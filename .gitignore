@@ -1,2 +1,4 @@
 *.o
-main
+*.d
+a.out
+/build
