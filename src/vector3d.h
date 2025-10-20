@@ -19,6 +19,7 @@ struct vector3d
     }
 
     inline vector3d operator * (float A) const { return vector3d(A*x, A*y, A*z); }
+    inline vector3d operator * (double A) const { return vector3d(A*x, A*y, A*z); }
 
     inline vector3d operator + (const vector3d& A) const { return vector3d(x + A.x, y + A.y, z + A.z); }
     inline vector3d operator - (const vector3d& A) const { return *this + (A*(-1.0)); }
@@ -32,7 +33,8 @@ struct vector3d
     }
 
     // member functions
-    float Length();
+    float Length() const;
+    vector3d Normalize() const;
 
     // static functions
     static vector3d Max(const vector3d &v, float a)

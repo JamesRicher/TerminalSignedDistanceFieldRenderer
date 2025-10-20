@@ -7,14 +7,21 @@ Screen::Screen(int width, int height)
     this->height = height;
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
+
+    half_pixel_width = 1.0/(2.0*width);
+    half_pixel_height = 1.0/(2.0*height);
 }
 
-Screen::Screen(int width, double aspect)
+// apsect here is as standard i.e. w/h
+Screen::Screen(int height, double aspect)
 {
-    this->width = width;
-    height = width * aspect;
+    this->height = height;
+    width = height * aspect;
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
+
+    half_pixel_width = 1.0/(2.0*width);
+    half_pixel_height = 1.0/(2.0*height);
 }
 
 void Screen::print()
@@ -44,6 +51,16 @@ bool Screen::set_pixel(int pixel_index, char c)
         return true;
     }
     return false;
+}
+
+int Screen::get_pixel_count() { return pixels; }
+
+void Screen::pi_to_ndc(int pi, double& ndc_x, double& ndc_y) const
+{
+    int row = pi / width;
+    int col = pi % width;
+    ndc_x = (col / static_cast<double>(width)) + half_pixel_width; 
+    ndc_y = row / static_cast<double>(height) + half_pixel_height;
 }
 
 void Screen::clear_terminal()
