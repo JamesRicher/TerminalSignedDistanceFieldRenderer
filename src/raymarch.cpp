@@ -1,10 +1,12 @@
+#include <chrono>
 #include "Screen.h"
 #include "camera.h"
 #include "constants.h"
 #include "SDF.h"
 #include "raymarch.h"
+#include "vector3d.h"
 
-bool check_pixel(int pixel_index, Screen& screen, Camera& cam, double cur_time)
+bool check_pixel(int pixel_index, Screen& screen, Camera& cam)
 {
     double ndc_x, ndc_y;
     screen.pi_to_ndc(pixel_index, ndc_x, ndc_y);
@@ -16,7 +18,7 @@ bool check_pixel(int pixel_index, Screen& screen, Camera& cam, double cur_time)
     int step = 0;
     while (step < MAX_STEPS && total_dist < MAX_DIST)
     {
-        double SDF_sample = scene(ro + rd*total_dist, cur_time);
+        double SDF_sample = scene(ro + rd*total_dist);
         if (SDF_sample < EPS)
             return true;
 
@@ -26,8 +28,24 @@ bool check_pixel(int pixel_index, Screen& screen, Camera& cam, double cur_time)
     return false;
 }
 
-double scene(vector3d pos, double cur_time)
+// vector3d get_normal(vector3d pos, double cur_time)
+// {
+//     double eps = 0.0001;
+//     double x = scene(pos + vector3d(eps,0.0,0.0)) - scene(pos - vector3d(eps,0.0,0.0));
+//     double y = scene(pos + vector3d(0.0,eps,0.0)) - scene(pos - vector3d(0.0,eps,0.0));
+//     double z = scene(pos + vector3d(0.0,0.0,eps)) - scene(pos - vector3d(0.0,0.0,eps));
+//     return vector3d(x,y,x).Normalize();
+// }
+
+double scene(vector3d pos)
 {
-    double offset = std::sin(cur_time);
-    return sdf_sphere(pos, 1.0, vector3d(0,0 + offset,4.0));
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = now - START_TIME;
+    double cur_time = diff.count();
+
+    double offset1 = std::sin(cur_time);
+    double offset2 = std::sin(cur_time*0.712);
+    float sphere1 = sdf_sphere(pos, 0.5, vector3d(0,0+offset1,4.0));
+    float sphere2 = sdf_sphere(pos, 1.2, vector3d(0,0-offset2,4.0));
+    return op_smooth_union(sphere1, sphere2, 0.1);
 }
