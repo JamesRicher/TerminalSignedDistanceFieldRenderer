@@ -1,27 +1,17 @@
 #include <iostream>
 #include "Screen.h"
-
-Screen::Screen(int width, int height)
-{
-    this->width = width;
-    this->height = height;
-    pixels = width * height;
-    pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
-
-    half_pixel_width = 1.0/(2.0*width);
-    half_pixel_height = 1.0/(2.0*height);
-}
+#include "constants.h"
 
 // apsect here is as standard i.e. w/h
 Screen::Screen(int height, double aspect)
 {
     this->height = height;
-    width = height * aspect;
+    width = height * aspect * CHAR_ASPECT;
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
 
-    half_pixel_width = 1.0/(2.0*width);
-    half_pixel_height = 1.0/(2.0*height);
+    half_pixel_width = 1.0/(2.0*width); // in ndc space
+    half_pixel_height = 1.0/(2.0*height); // in ndc space
 }
 
 void Screen::print()
@@ -55,10 +45,10 @@ bool Screen::set_pixel(int pixel_index, char c)
 
 int Screen::get_pixel_count() { return pixels; }
 
-void Screen::pi_to_ndc(int pi, double& ndc_x, double& ndc_y) const
+void Screen::pi_to_ndc(int pixel_index, double& ndc_x, double& ndc_y) const
 {
-    int row = pi / width;
-    int col = pi % width;
+    int row = pixel_index / width;
+    int col = pixel_index % width;
     ndc_x = (col / static_cast<double>(width)) + half_pixel_width; 
     ndc_y = row / static_cast<double>(height) + half_pixel_height;
 }

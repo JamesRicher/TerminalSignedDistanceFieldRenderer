@@ -15,7 +15,6 @@ private:
     double half_pixel_height; //in NDC space
     std::vector<char> pixels_vector;
 public:
-    Screen(int width, int height);
     Screen(int height, double asepct);
     void print();
     void clear();

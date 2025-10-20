@@ -9,10 +9,10 @@
 #include "Screen.h"
 #include "constants.h"
 
-const double x_fov_angle = 45.0;
-const double y_fov_angle = 45.0;
-const double apsect = std::tan(x_fov_angle) / std::tan(y_fov_angle);
-const double character_apsect = 2.0;
+// authored constants options
+const int HEIGHT = 50;
+const double ASPECT = 1.5; // final aspect ratio of the image
+const double HALF_FOV_DEG_X = 45.0; // camera horizontal fov
 
 bool check_pixel(int pixel_index, Screen& screen, Camera& camera);
 double scene(vector3d pos);
@@ -22,8 +22,8 @@ int main()
     int frames = 0;
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
-    Screen screen(40,1.0);
-    Camera cam(45.0, 45.0);
+    Screen screen(HEIGHT,ASPECT);
+    Camera cam(HALF_FOV_DEG_X, ASPECT);
 
     while(1)
     {
@@ -71,5 +71,5 @@ bool check_pixel(int pixel_index, Screen& screen, Camera& cam)
 
 double scene(vector3d pos)
 {
-    sdf_sphere(pos, 1.0, vector3d(0,0,4.0));
+    return sdf_sphere(pos, 1.0, vector3d(0,0,4.0));
 }
