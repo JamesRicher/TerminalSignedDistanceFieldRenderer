@@ -18,9 +18,17 @@ char check_pixel(int pixel_index, Screen& screen, Camera& cam)
     int step = 0;
     while (step < MAX_STEPS && total_dist < MAX_DIST)
     {
-        double SDF_sample = scene(ro + rd*total_dist);
+        vector3d sample_pos = ro +rd*total_dist;
+        double SDF_sample = scene(sample_pos);
         if (SDF_sample < EPS)
-            return '#';
+        {
+            vector3d normal = get_normal(sample_pos);
+            double diffuse = normal.Dot(vector3d(1,1,1));
+            if (diffuse >= 0.5)
+                return '#';
+            else
+                return 'c';
+        }
 
         total_dist += SDF_sample;
         step++;
@@ -28,7 +36,7 @@ char check_pixel(int pixel_index, Screen& screen, Camera& cam)
     return 'q';
 }
 
-vector3d get_normal(vector3d pos, double cur_time)
+vector3d get_normal(vector3d pos)
 {
     double eps = 0.0001;
     double x = scene(pos + vector3d(eps,0.0,0.0)) - scene(pos - vector3d(eps,0.0,0.0));
@@ -43,8 +51,8 @@ double scene(vector3d pos)
     std::chrono::duration<double> diff = now - START_TIME;
     double cur_time = diff.count();
 
-    double offset1 = std::sin(cur_time);
-    double offset2 = std::sin(cur_time*0.712);
+    double offset1 = std::sin(cur_time*3.0);
+    double offset2 = std::sin(cur_time*1.712);
     float sphere1 = sdf_sphere(pos, 0.5, vector3d(0,0+offset1,4.0));
     float sphere2 = sdf_sphere(pos, 1.2, vector3d(0,0-offset2,4.0));
     return op_smooth_union(sphere1, sphere2, 0.1);

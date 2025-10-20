@@ -6,7 +6,7 @@
 class Screen
 {
 private:
-    const char EMPTY_CHAR = '.';
+    const char EMPTY_CHAR = ' ';
 
     int width;
     int height;
