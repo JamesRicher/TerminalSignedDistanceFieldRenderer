@@ -17,6 +17,8 @@ const double HALF_FOV_DEG_X = 45.0; // camera horizontal fov
 
 int main()
 {
+    auto start = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff;
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
     Screen screen(HEIGHT,ASPECT);
@@ -24,18 +26,20 @@ int main()
 
     while(1)
     {
+        auto now = std::chrono::high_resolution_clock::now();
+        diff = now - start;
         Screen::clear_terminal();
 
         screen.clear();
 
         for (int i=0; i < screen.get_pixel_count(); i++)
         {
-            if (check_pixel(i, screen, cam))
+            if (check_pixel(i, screen, cam, diff.count()))
                 screen.set_pixel(i, '#');
         }
         screen.print();
-
         std::this_thread::sleep_for(frame_duration);
+
     }
 
     return 0;

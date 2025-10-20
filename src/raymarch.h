@@ -4,7 +4,7 @@
 #include "Screen.h"
 #include "camera.h"
 
-bool check_pixel(int pixel_index, Screen& screen, Camera& camera);
-double scene(vector3d pos);
+bool check_pixel(int pixel_index, Screen& screen, Camera& camera, double cur_time);
+double scene(vector3d pos, double cur_time);
 
 #endif
