@@ -6,7 +6,7 @@
 #include "raymarch.h"
 #include "vector3d.h"
 
-bool check_pixel(int pixel_index, Screen& screen, Camera& cam)
+char check_pixel(int pixel_index, Screen& screen, Camera& cam)
 {
     double ndc_x, ndc_y;
     screen.pi_to_ndc(pixel_index, ndc_x, ndc_y);
@@ -20,22 +20,22 @@ bool check_pixel(int pixel_index, Screen& screen, Camera& cam)
     {
         double SDF_sample = scene(ro + rd*total_dist);
         if (SDF_sample < EPS)
-            return true;
+            return '#';
 
         total_dist += SDF_sample;
         step++;
     }
-    return false;
+    return 'q';
 }
 
-// vector3d get_normal(vector3d pos, double cur_time)
-// {
-//     double eps = 0.0001;
-//     double x = scene(pos + vector3d(eps,0.0,0.0)) - scene(pos - vector3d(eps,0.0,0.0));
-//     double y = scene(pos + vector3d(0.0,eps,0.0)) - scene(pos - vector3d(0.0,eps,0.0));
-//     double z = scene(pos + vector3d(0.0,0.0,eps)) - scene(pos - vector3d(0.0,0.0,eps));
-//     return vector3d(x,y,x).Normalize();
-// }
+vector3d get_normal(vector3d pos, double cur_time)
+{
+    double eps = 0.0001;
+    double x = scene(pos + vector3d(eps,0.0,0.0)) - scene(pos - vector3d(eps,0.0,0.0));
+    double y = scene(pos + vector3d(0.0,eps,0.0)) - scene(pos - vector3d(0.0,eps,0.0));
+    double z = scene(pos + vector3d(0.0,0.0,eps)) - scene(pos - vector3d(0.0,0.0,eps));
+    return vector3d(x,y,z).Normalize();
+}
 
 double scene(vector3d pos)
 {

@@ -30,15 +30,14 @@ int main()
 
         for (int i=0; i < screen.get_pixel_count(); i++)
         {
-            if (check_pixel(i, screen, cam))
+            char pixel = check_pixel(i, screen, cam);
+            if (pixel != 'q')
             {
-                screen.set_pixel(i, '#');
+                screen.set_pixel(i, pixel);
             }
         }
         screen.print();
         std::this_thread::sleep_for(frame_duration);
-
     }
-
     return 0;
 }

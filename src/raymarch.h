@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "vector3d.h"
 
-bool check_pixel(int pixel_index, Screen& screen, Camera& camera);
+char check_pixel(int pixel_index, Screen& screen, Camera& camera);
 double scene(vector3d pos);
 vector3d get_normal(vector3d pos);
 
