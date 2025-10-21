@@ -4,7 +4,7 @@
 #include <chrono>
 
 const float PI = 3.14159265359;
-const int FPS = 12;
+const int FPS = 30;
 const double FRAME_TIME = 1.0/FPS;
 
 // raymarching settings

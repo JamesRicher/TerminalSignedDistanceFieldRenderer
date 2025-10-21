@@ -11,7 +11,7 @@
 #include "raymarch.h"
 
 // authored constants options
-const int HEIGHT = 60;
+const int HEIGHT = 75;
 const double ASPECT = 1.5; // final aspect ratio of the image
 const double HALF_FOV_DEG_X = 45.0; // camera horizontal fov
 

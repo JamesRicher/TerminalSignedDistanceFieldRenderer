@@ -21,7 +21,7 @@ void Screen::print()
         for (int col=0; col<width; col++)
         {
             int index = col + row*width;
-            std::cout << "\u001b[31m" << pixels_vector[index];
+            std::cout << "\u001b[1m" << pixels_vector[index];
         }
         std::cout << std::endl;
     }
@@ -55,5 +55,5 @@ void Screen::pi_to_ndc(int pixel_index, double& ndc_x, double& ndc_y) const
 
 void Screen::clear_terminal()
 {
-    std::cout << "\033[2J\033[1;1H";
+    std::cout << "\x1B[H" << "\x1B[J";
 }
