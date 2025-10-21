@@ -26,8 +26,10 @@ char check_pixel(int pixel_index, Screen& screen, Camera& cam)
             double diffuse = normal.Dot(vector3d(1,1,1));
             if (diffuse >= 0.5)
                 return '#';
-            else
+            else if (diffuse >= 0.2)
                 return 'c';
+            else
+                return '.';
         }
 
         total_dist += SDF_sample;

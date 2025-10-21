@@ -25,8 +25,6 @@ int main()
 
     while(1)
     {
-        Screen::clear_terminal();
-
         screen.clear();
 
         for (int i=0; i < screen.get_pixel_count(); i++)
@@ -37,6 +35,7 @@ int main()
                 screen.set_pixel(i, pixel);
             }
         }
+        Screen::clear_terminal();
         screen.print();
         std::this_thread::sleep_for(frame_duration);
     }

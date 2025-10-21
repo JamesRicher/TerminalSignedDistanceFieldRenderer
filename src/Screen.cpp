@@ -16,17 +16,15 @@ Screen::Screen(int height, double aspect)
 
 void Screen::print()
 {
-    std::vector<char> screen_output(pixels + height);
     for (int row=0; row<height; row++)
     {
         for (int col=0; col<width; col++)
         {
             int index = col + row*width;
-            screen_output.push_back(pixels_vector[index]);
+            std::cout << "\u001b[31m" << pixels_vector[index];
         }
-        screen_output.push_back('\n');
+        std::cout << std::endl;
     }
-    std::cout.write(screen_output.data(), screen_output.size());
 }
 
 void Screen::clear()
