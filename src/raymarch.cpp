@@ -23,19 +23,19 @@ char check_pixel(int pixel_index, Screen& screen, Camera& cam)
         if (SDF_sample < EPS)
         {
             vector3d normal = get_normal(sample_pos);
-            double diffuse = normal.Dot(vector3d(1,1,1));
-            if (diffuse >= 0.5)
-                return 'b';
-            else if (diffuse >= 0.2)
-                return 'd';
+            double diffuse = normal.Dot(vector3d(0,1,-1));
+            if (diffuse >= 0.9)
+                return '#';
+            else if (diffuse >= 0.5)
+                return 'c';
             else
-                return 'e';
+                return '.';
         }
 
         total_dist += SDF_sample;
         step++;
     }
-    return 'q';
+    return ' ';
 }
 
 vector3d get_normal(vector3d pos)
@@ -55,7 +55,20 @@ double scene(vector3d pos)
 
     double offset1 = std::sin(cur_time*3.0);
     double offset2 = std::sin(cur_time*1.712);
-    float sphere1 = sdf_sphere(pos, 0.5, vector3d(0,0+offset1,4.0));
-    float sphere2 = sdf_sphere(pos, 1.2, vector3d(0,0-offset2,4.0));
-    return op_smooth_union(sphere1, sphere2, 0.1);
+    // float sphere1 = sdf_sphere(pos, 0.5, vector3d(0,0+offset1,4.0));
+    // float sphere2 = sdf_sphere(pos, 1.2, vector3d(0,0-offset2,4.0));
+    // return op_smooth_union(sphere1, sphere2, 0.1);
+    
+    double sphere1 = sdf_sphere(pos, 1, vector3d(0+offset1,0,4.0));
+    double sphere2 = sdf_sphere(pos, 1, vector3d(3-offset1-offset2,0,4.0));
+    double sphere3 = sdf_sphere(pos, 1, vector3d(-3+offset2,0,4.0));
+    double sphere4 = sdf_sphere(pos, 1, vector3d(0,0,8.0+offset1));
+    double sphere5 = sdf_sphere(pos, 1, vector3d(3,0+offset2,8.0));
+    double sphere6 = sdf_sphere(pos, 1, vector3d(-3+offset2-offset1,0,8.0));
+    double u = op_smooth_union(sphere1, sphere2,0.3);
+    u = op_smooth_union(u, sphere3,0.3);
+    u = op_smooth_union(u, sphere4,0.3);
+    u = op_smooth_union(u, sphere5,0.3);
+    u = op_smooth_union(u, sphere6,0.3);
+    return u;
 }

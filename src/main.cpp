@@ -10,13 +10,10 @@
 #include "constants.h"
 #include "raymarch.h"
 
-// authored constants options
-const int HEIGHT = 75;
-const double ASPECT = 1.5; // final aspect ratio of the image
-const double HALF_FOV_DEG_X = 45.0; // camera horizontal fov
 
 int main()
 {
+    std::cout << "\x1b[?25l";
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 

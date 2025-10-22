@@ -27,6 +27,12 @@ struct vector3d
     inline vector3d operator + (float A) const {return vector3d(x + A, y + A, z + A); }
     inline vector3d operator - (float A) const {return *this + (-A); }
 
+    inline vector3d operator % (float A) const { return vector3d(
+        std::fmod(x,A), 
+        std::fmod(y,A),
+        std::fmod(z,A)); 
+    }
+
     inline float Dot(const vector3d& A)
     {
         return x*A.x + y*A.y + z*A.z;

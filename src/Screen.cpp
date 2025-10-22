@@ -21,16 +21,7 @@ void Screen::print()
         for (int col=0; col<width; col++)
         {
             int index = col + row*width;
-            char c = '.';
-            char* style = "\u001b[1;37;41m";
-            if (pixels_vector[index]=='b')
-                std::cout << style << "b";
-            else if (pixels_vector[index]=='d')
-                std::cout << "\u001b[0m" << "d";
-            else if (pixels_vector[index]=='e')
-                std::cout << "\u001b[2m" << "e";
-            else
-                std::cout << "\u001b[0m" << " ";
+             std::cout << pixels_vector[index];
         }
         std::cout << std::endl;
     }
