@@ -57,3 +57,13 @@ void Screen::clear_terminal()
 {
     std::cout << "\x1B[H" << "\x1B[J";
 }
+
+void Screen::hide_cursor()
+{
+    std::cout << "\x1b[?25l";
+}
+
+void Screen::unhide_cursor()
+{
+    std::cout << "\x1b[?25h";
+}

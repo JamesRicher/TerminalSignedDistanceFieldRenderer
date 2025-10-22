@@ -23,6 +23,8 @@ public:
     void pi_to_ndc(int pi, double& ndc_x, double& ndc_y) const;
 
     static void clear_terminal();
+    static void hide_cursor();
+    static void unhide_cursor();
 };
 
 #endif
