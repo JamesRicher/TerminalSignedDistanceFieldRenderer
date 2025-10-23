@@ -15,13 +15,14 @@ void sigint_handler(int sig);
 
 int main()
 {
-    signal(SIGINT, sigint_handler);
+    std::signal(SIGINT, sigint_handler);
 
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
-    Screen screen(HEIGHT,ASPECT);
-    Camera cam(HALF_FOV_DEG_X, ASPECT);
+    //Screen screen(HEIGHT,ASPECT);
+    Screen screen = Screen();
+    Camera cam(HALF_FOV_DEG_X, screen.get_aspect());
 
     Screen::hide_cursor();
 
@@ -30,12 +31,11 @@ int main()
         if (STOP)
             break;
 
-        screen.clear();
-
+        screen.clear(); 
         for (int i=0; i < screen.get_pixel_count(); i++)
         {
             char pixel = check_pixel(i, screen, cam);
-            if (pixel != 'q')
+            if (pixel != screen.get_empty_char())
             {
                 screen.set_pixel(i, pixel);
             }

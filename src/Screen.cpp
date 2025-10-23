@@ -1,4 +1,9 @@
 #include <iostream>
+
+// only need these for getting screen width and height
+#include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
+#include <unistd.h> // for STDOUT_FILENO
+
 #include "Screen.h"
 #include "constants.h"
 
@@ -9,6 +14,25 @@ Screen::Screen(int height, double aspect)
     width = height * aspect * CHAR_ASPECT;
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
+
+    aspect = width/height;
+
+    half_pixel_width = 1.0/(2.0*width); // in ndc space
+    half_pixel_height = 1.0/(2.0*height); // in ndc space
+}
+
+// makes fullscreen
+Screen::Screen()
+{
+    struct winsize size;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+    height = size.ws_row;
+    width = size.ws_col;
+
+    pixels = width * height;
+    pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
+
+    aspect = width/height;
 
     half_pixel_width = 1.0/(2.0*width); // in ndc space
     half_pixel_height = 1.0/(2.0*height); // in ndc space

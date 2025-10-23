@@ -35,7 +35,7 @@ char check_pixel(int pixel_index, Screen& screen, Camera& cam)
         total_dist += SDF_sample;
         step++;
     }
-    return ' ';
+    return screen.get_empty_char(); 
 }
 
 vector3d get_normal(vector3d pos)
@@ -59,6 +59,7 @@ double scene(vector3d pos)
     // float sphere2 = sdf_sphere(pos, 1.2, vector3d(0,0-offset2,4.0));
     // return op_smooth_union(sphere1, sphere2, 0.1);
     
+    /* 
     double sphere1 = sdf_sphere(pos, 1, vector3d(0+offset1,0,4.0));
     double sphere2 = sdf_sphere(pos, 1, vector3d(3-offset1-offset2,0,4.0));
     double sphere3 = sdf_sphere(pos, 1, vector3d(-3+offset2,0,4.0));
@@ -70,5 +71,13 @@ double scene(vector3d pos)
     u = op_smooth_union(u, sphere4,0.3);
     u = op_smooth_union(u, sphere5,0.3);
     u = op_smooth_union(u, sphere6,0.3);
-    return u;
+    */ 
+    double morph = 0.3;
+
+    double box = sdf_box(pos + vector3d(2,1,-4), vector3d(0.5,0.5,1));
+    double sphere = sdf_sphere(pos, 0.9, vector3d(offset1,offset2,4));
+    double box2 = sdf_box(pos + vector3d(-2,1,-4), vector3d(0.5,0.5,1));
+    double u2 = op_smooth_union(box, sphere, morph);
+    u2 = op_smooth_union(box2, u2, morph);
+    return u2;
 }

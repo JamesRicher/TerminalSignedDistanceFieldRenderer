@@ -4,11 +4,11 @@
 #include <chrono>
 
 const float PI = 3.14159265359;
-const int FPS = 30;
+const int FPS = 50;
 const double FRAME_TIME = 1.0/FPS;
 
 // raymarching settings
-const int MAX_STEPS = 70;
+const int MAX_STEPS = 100;
 const double MAX_DIST = 200.0;
 const double EPS = 0.001; // defines what counts as a hit
 
