@@ -4,7 +4,7 @@
 #include "Vector3d.h"
 
 // assuming the near plane is at z=1 in view space and that 
-// the camera is facing in the postive z with no rotation
+// the Camera is facing in the postive z with no rotation
 class Camera
 {
 private:

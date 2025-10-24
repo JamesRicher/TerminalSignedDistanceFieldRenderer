@@ -1,6 +1,6 @@
 #include <cmath>
 #include "constants.h"
-#include "camera.h"
+#include "Camera.h"
 #include "Vector3d.h"
 
 Camera::Camera(double half_fov_deg_x, double aspect)

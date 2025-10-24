@@ -5,7 +5,7 @@
 
 #include "Vector3d.h"
 #include "SDF.h"
-#include "camera.h"
+#include "Camera.h"
 #include "Screen.h"
 #include "constants.h"
 #include "raymarch.h"

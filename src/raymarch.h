@@ -2,7 +2,7 @@
 #define RAYMARCH_H
 
 #include "Screen.h"
-#include "camera.h"
+#include "Camera.h"
 #include "Vector3d.h"
 
 char check_pixel(int pixel_index, Screen& screen, Camera& camera);

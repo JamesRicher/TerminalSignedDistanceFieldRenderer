@@ -1,6 +1,6 @@
 #include <chrono>
 #include "Screen.h"
-#include "camera.h"
+#include "Camera.h"
 #include "constants.h"
 #include "SDF.h"
 #include "raymarch.h"
