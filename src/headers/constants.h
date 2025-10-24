@@ -8,11 +8,9 @@ const int FPS = 50;
 const double FRAME_TIME = 1.0/FPS;
 
 // raymarching settings
-const int MAX_STEPS = 100;
-const double MAX_DIST = 200.0;
+const int MAX_STEPS = 200;
+const double MAX_DIST = 1000.0;
 const double EPS = 0.001; // defines what counts as a hit
-
-const double CHAR_ASPECT = 2.0; // aspect ratio of a character printed on the terminal
 
 const auto START_TIME = std::chrono::high_resolution_clock::now();
 

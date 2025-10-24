@@ -67,14 +67,12 @@ bool Screen::set_pixel(int pixel_index, char c)
     return false;
 }
 
-int Screen::get_pixel_count() { return pixels; }
-
 void Screen::pi_to_ndc(int pixel_index, double& ndc_x, double& ndc_y) const
 {
     int row = pixel_index / width;
     int col = pixel_index % width;
     ndc_x = (col / static_cast<double>(width)) + half_pixel_width; 
-    ndc_y = row / static_cast<double>(height) + half_pixel_height;
+    ndc_y = row / static_cast<double>(height) - half_pixel_height;
 }
 
 void Screen::clear_terminal()

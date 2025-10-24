@@ -31,6 +31,9 @@ int main()
         if (STOP)
             break;
 
+        // move camera
+        cam.pos = cam.pos + Vector3d(0,0,-0.1);
+
         screen.clear(); 
         for (int i=0; i < screen.get_pixel_count(); i++)
         {
