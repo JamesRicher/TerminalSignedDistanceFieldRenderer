@@ -1,6 +1,7 @@
 #include <cmath>
 #include "constants.h"
 #include "camera.h"
+#include "Vector3d.h"
 
 Camera::Camera(double half_fov_deg_x, double aspect)
 {
@@ -9,12 +10,12 @@ Camera::Camera(double half_fov_deg_x, double aspect)
     near_plane_width = 2.0*std::tan(half_fov_rad_x);
     near_plane_height = near_plane_width * (1.0/aspect);
 
-    pos = vector3d(0,0,-2);
+    pos = Vector3d(0,0,-2);
 }
 
-vector3d Camera::ndc_to_world_pos(double ndc_x, double ndc_y)
+Vector3d Camera::ndc_to_world_pos(double ndc_x, double ndc_y)
 {
     double x = (ndc_x-0.5) * near_plane_width;
     double y = -(ndc_y-0.5) * near_plane_height;
-    return vector3d(x,y,1) + pos;
+    return Vector3d(x,y,1) + pos;
 }

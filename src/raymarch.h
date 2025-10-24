@@ -3,10 +3,10 @@
 
 #include "Screen.h"
 #include "camera.h"
-#include "vector3d.h"
+#include "Vector3d.h"
 
 char check_pixel(int pixel_index, Screen& screen, Camera& camera);
-double scene(vector3d pos);
-vector3d get_normal(vector3d pos);
+double scene(Vector3d pos);
+Vector3d get_normal(Vector3d pos);
 
 #endif

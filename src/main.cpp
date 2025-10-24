@@ -3,7 +3,7 @@
 #include <cmath>
 #include <csignal>
 
-#include "vector3d.h"
+#include "Vector3d.h"
 #include "SDF.h"
 #include "camera.h"
 #include "Screen.h"

@@ -1,15 +1,15 @@
-#include "vector3d.h"
+#include "Vector3d.h"
 #include <cmath>
 
-float sdf_sphere(vector3d pos, float radius, vector3d centre)
+float sdf_sphere(Vector3d pos, float radius, Vector3d centre)
 {
     return (pos - centre).Length() - radius;
 }
 
-float sdf_box(vector3d pos, vector3d box)
+float sdf_box(Vector3d pos, Vector3d box)
 {
-    vector3d q = vector3d::Abs(pos) - box; 
-    return vector3d::Max(q, 0.0).Length() + std::fmin(std::fmax(q.x, std::fmax(q.y, q.z)),0.0);
+    Vector3d q = Vector3d::Abs(pos) - box; 
+    return Vector3d::Max(q, 0.0).Length() + std::fmin(std::fmax(q.x, std::fmax(q.y, q.z)),0.0);
 }
 
 double op_union(double d1, double d2) { return std::min(d1,d2); }

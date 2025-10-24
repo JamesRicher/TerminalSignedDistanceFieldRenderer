@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "vector3d.h"
+#include "Vector3d.h"
 
 // assuming the near plane is at z=1 in view space and that 
 // the camera is facing in the postive z with no rotation
@@ -14,11 +14,11 @@ private:
     double near_plane_height;
 
 public:
-    vector3d pos;
+    Vector3d pos;
 
     Camera(double x_fov_deg, double y_fov_deg);
 
-    vector3d ndc_to_world_pos(double ndc_x, double ndc_y);
+    Vector3d ndc_to_world_pos(double ndc_x, double ndc_y);
 };
 
 #endif
