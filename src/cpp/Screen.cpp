@@ -57,8 +57,13 @@ void Screen::clear()
         pixels_vector[i] = EMPTY_CHAR;
 }
 
-bool Screen::set_pixel(int pixel_index, char c)
+bool Screen::set_pixel(int pixel_index, double brightness)
 {
+    // get the corresponding char
+    brightness = std::pow(brightness,2);
+    int ASCII_index = std::floor(brightness * 7);
+    char c = gradient.c_str()[ASCII_index];
+
     if (pixel_index >= 0 && pixel_index < pixels)
     {
         pixels_vector[pixel_index] = c;

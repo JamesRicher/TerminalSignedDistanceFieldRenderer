@@ -44,18 +44,7 @@ int main()
             if (hit)
             {
                 double diffuse = lights.front().calculate_diffuse(normal);
-                if (diffuse > 0.9)
-                {
-                    screen.set_pixel(i, '@');
-                }
-                else if (diffuse > 0.5)
-                {
-                    screen.set_pixel(i, 'c');
-                }
-                else
-                {
-                    screen.set_pixel(i, '.');
-                }   
+                screen.set_pixel(i, diffuse);
             }
         }
         Screen::clear_terminal();

@@ -1,0 +1,60 @@
+#include <chrono>
+#include "sdf.h"
+#include "Vector3d.h"
+#include "constants.h"
+
+double get_current_time();
+
+double spheres_around_a_cube(Vector3d pos)
+{
+    double cur_time = get_current_time();
+
+    double morph = 0.2;
+    Vector3d sphere1_centre = Vector3d(-1,0,3);
+    Vector3d sphere1_offset = Vector3d(std::sin(-cur_time * 1.5), std::cos(-cur_time * 1.5), 0);
+    Vector3d sphere2_centre = Vector3d(1,0,3);
+    Vector3d sphere2_offset = Vector3d(std::sin(cur_time * 1.5), std::cos(cur_time * 1.5), 0);
+    double sphere1 = sdf_sphere(pos - (sphere1_centre + sphere2_offset), 0.5);
+    double sphere2 = sdf_sphere(pos - (sphere2_centre - sphere2_offset), 0.5);
+    double sphere3 = sdf_sphere(pos - (sphere1_centre - sphere1_offset), 0.5);
+    double sphere4 = sdf_sphere(pos - (sphere2_centre + sphere1_offset), 0.5);
+
+    double box = sdf_box((pos- Vector3d(0,0,3)).rotate_x(cur_time * 50.0), Vector3d(0.5,0.5,0.5));
+
+    double u = op_smooth_union(sphere1, sphere2, morph);
+    u = op_smooth_union(u, sphere3, morph);
+    u = op_smooth_union(u, sphere4, morph);
+    u = op_smooth_union(u, box, morph);
+    return u;
+}
+
+double radial_spheres(Vector3d pos)
+{
+    int sphere_count = 8;
+    double radius = 0.4;
+
+    Vector3d box_pos = Vector3d(0,0,5);
+    double move_radius = 3.0;
+    double morph = 0.1;
+
+    double u = sdf_box(pos - box_pos, Vector3d(0.5,0.5,0.5));
+
+    for (int i=0; i < sphere_count; i++)
+    {
+        double ang = 2*PI * i/static_cast<double>(sphere_count); 
+        Vector3d endpoint = Vector3d(std::sin(ang), std::cos(ang),0) * move_radius; 
+        double s = sdf_sphere(pos - endpoint, radius);
+        u = op_smooth_union(u,s,morph);
+    }
+
+    return u;
+}
+
+double get_current_time()
+{
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = now - START_TIME;
+    double cur_time = diff.count();
+    
+    return cur_time;
+}

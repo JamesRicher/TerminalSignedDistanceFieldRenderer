@@ -5,6 +5,7 @@
 #include "sdf.h"
 #include "raymarch.h"
 #include "Vector3d.h"
+#include "scenes.h"
 
 bool check_pixel(int pixel_index, Screen& screen, Camera& cam, Vector3d& normal)
 {
@@ -41,56 +42,8 @@ Vector3d get_normal(Vector3d pos)
     return Vector3d(x,y,z).Normalize() * -1.0;
 }
 
+
 double scene(Vector3d pos)
 {
-    auto now = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = now - START_TIME;
-    double cur_time = diff.count();
-
-    double offset1 = std::sin(cur_time*3.0);
-    double offset2 = std::sin(cur_time*1.712);
-    // float sphere1 = sdf_sphere(pos, 0.5, Vector3d(0,0+offset1,4.0));
-    // float sphere2 = sdf_sphere(pos, 1.2, Vector3d(0,0-offset2,4.0));
-    // return op_smooth_union(sphere1, sphere2, 0.1);
-    
-    /* 
-    double sphere1 = sdf_sphere(pos, 1, Vector3d(0+offset1,0,4.0));
-    double sphere2 = sdf_sphere(pos, 1, Vector3d(3-offset1-offset2,0,4.0));
-    double sphere3 = sdf_sphere(pos, 1, Vector3d(-3+offset2,0,4.0));
-    double sphere4 = sdf_sphere(pos, 1, Vector3d(0,0,8.0+offset1));
-    double sphere5 = sdf_sphere(pos, 1, Vector3d(3,0+offset2,8.0));
-    double sphere6 = sdf_sphere(pos, 1, Vector3d(-3+offset2-offset1,0,8.0));
-    double u = op_smooth_union(sphere1, sphere2,0.3);
-    u = op_smooth_union(u, sphere3,0.3);
-    u = op_smooth_union(u, sphere4,0.3);
-    u = op_smooth_union(u, sphere5,0.3);
-    u = op_smooth_union(u, sphere6,0.3);
-    
-    double morph = 0.3;
-
-    double box = sdf_box(pos + Vector3d(2,1,-4), Vector3d(0.5,0.5,1));
-    double sphere = sdf_sphere(pos, 0.9, Vector3d(offset1,offset2,4));
-    double box2 = sdf_box(pos + Vector3d(-2,1,-4), Vector3d(0.5,0.5,1));
-    double u2 = op_smooth_union(box, sphere, morph);
-    u2 = op_smooth_union(box2, u2, morph);
-    return u2;
-    */
-
-    double morph = 0.2;
-    Vector3d sphere1_centre = Vector3d(-1,0,3);
-    Vector3d sphere1_offset = Vector3d(std::sin(-cur_time * 1.5), std::cos(-cur_time * 1.5), 0);
-    Vector3d sphere2_centre = Vector3d(1,0,3);
-    Vector3d sphere2_offset = Vector3d(std::sin(cur_time * 1.5), std::cos(cur_time * 1.5), 0);
-    double sphere1 = sdf_sphere(pos - (sphere1_centre + sphere2_offset), 0.5);
-    double sphere2 = sdf_sphere(pos - (sphere2_centre - sphere2_offset), 0.5);
-    double sphere3 = sdf_sphere(pos - (sphere1_centre - sphere1_offset), 0.5);
-    double sphere4 = sdf_sphere(pos - (sphere2_centre + sphere1_offset), 0.5);
-
-    double box = sdf_box((pos- Vector3d(0,0,3)).rotate_x(cur_time * 50.0), Vector3d(0.5,0.5,0.5));
-
-    double u = op_smooth_union(sphere1, sphere2, morph);
-    u = op_smooth_union(u, sphere3, morph);
-    u = op_smooth_union(u, sphere4, morph);
-    u = op_smooth_union(u, box, morph);
-    return u;
+    return radial_spheres(pos);
 }

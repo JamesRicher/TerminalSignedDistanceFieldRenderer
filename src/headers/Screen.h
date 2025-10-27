@@ -2,12 +2,14 @@
 #define SCREEN_H
 
 #include <vector>
+#include <string>
 
 class Screen
 {
 private:
     const char EMPTY_CHAR = ' ';
     const double CHAR_ASPECT = 2.0;
+    const std::string gradient = ".,:ilw#";
 
     // the width and height of the screen in pixels
     int width;
@@ -34,7 +36,7 @@ public:
     // sets each entry in screen to EMPTY_CHAR
     void clear();
     // sets the value of a pixel at a given pixel
-    bool set_pixel(int pixel_index, char c);
+    bool set_pixel(int pixel_index, double brightness);
     void pi_to_ndc(int pi, double& ndc_x, double& ndc_y) const;
 
     // getters
