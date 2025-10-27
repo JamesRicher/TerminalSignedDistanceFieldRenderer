@@ -20,8 +20,8 @@ int main()
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
-    Screen screen = Screen(HEIGHT,ASPECT);
-    //Screen screen = Screen();
+    //Screen screen = Screen(HEIGHT,ASPECT);
+    Screen screen = Screen();
     Camera cam(HALF_FOV_DEG_X, screen.get_aspect());
 
     Screen::hide_cursor();

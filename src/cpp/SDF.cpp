@@ -1,9 +1,9 @@
 #include "Vector3d.h"
 #include <cmath>
 
-float sdf_sphere(Vector3d pos, float radius, Vector3d centre)
+float sdf_sphere(Vector3d pos, float radius)
 {
-    return (pos - centre).Length() - radius;
+    return pos.Length() - radius;
 }
 
 float sdf_box(Vector3d pos, Vector3d box)

@@ -3,7 +3,7 @@
 
 #include "Vector3d.h"
 
-float sdf_sphere(Vector3d pos, float radius, Vector3d centre);
+float sdf_sphere(Vector3d pos, float radius);
 float sdf_box(Vector3d pos, Vector3d box);
 
 double op_union(double d1, double d2);

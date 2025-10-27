@@ -71,7 +71,7 @@ double scene(Vector3d pos)
     u = op_smooth_union(u, sphere4,0.3);
     u = op_smooth_union(u, sphere5,0.3);
     u = op_smooth_union(u, sphere6,0.3);
-    */ 
+    
     double morph = 0.3;
 
     double box = sdf_box(pos + Vector3d(2,1,-4), Vector3d(0.5,0.5,1));
@@ -80,4 +80,23 @@ double scene(Vector3d pos)
     double u2 = op_smooth_union(box, sphere, morph);
     u2 = op_smooth_union(box2, u2, morph);
     return u2;
+    */
+
+    double morph = 0.2;
+    Vector3d sphere1_centre = Vector3d(-1,0,3);
+    Vector3d sphere1_offset = Vector3d(std::sin(-cur_time * 1.5), std::cos(-cur_time * 1.5), 0);
+    Vector3d sphere2_centre = Vector3d(1,0,3);
+    Vector3d sphere2_offset = Vector3d(std::sin(cur_time * 1.5), std::cos(cur_time * 1.5), 0);
+    double sphere1 = sdf_sphere(pos - (sphere1_centre + sphere2_offset), 0.5);
+    double sphere2 = sdf_sphere(pos - (sphere2_centre - sphere2_offset), 0.5);
+    double sphere3 = sdf_sphere(pos - (sphere1_centre - sphere1_offset), 0.5);
+    double sphere4 = sdf_sphere(pos - (sphere2_centre + sphere1_offset), 0.5);
+
+    double box = sdf_box((pos- Vector3d(0,0,3)).rotate_x(cur_time * 50.0), Vector3d(0.5,0.5,0.5));
+
+    double u = op_smooth_union(sphere1, sphere2, morph);
+    u = op_smooth_union(u, sphere3, morph);
+    u = op_smooth_union(u, sphere4, morph);
+    u = op_smooth_union(u, box, morph);
+    return u;
 }
