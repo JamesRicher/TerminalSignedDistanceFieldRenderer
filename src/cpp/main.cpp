@@ -29,7 +29,7 @@ int main()
 
     // Setup lights
     std::list<Light> lights;
-    lights.push_back(Light(Vector3d(1,1,1), 1.0));
+    lights.push_back(Light(Vector3d(0,0,1), 1.0));
 
     while(1)
     {
@@ -39,10 +39,23 @@ int main()
         screen.clear(); 
         for (int i=0; i < screen.get_pixel_count(); i++)
         {
-            char pixel = check_pixel(i, screen, cam);
-            if (pixel != screen.get_empty_char())
+            Vector3d normal;
+            bool hit = check_pixel(i, screen, cam, normal);
+            if (hit)
             {
-                screen.set_pixel(i, pixel);
+                double diffuse = lights.front().calculate_diffuse(normal);
+                if (diffuse > 0.9)
+                {
+                    screen.set_pixel(i, '@');
+                }
+                else if (diffuse > 0.5)
+                {
+                    screen.set_pixel(i, 'c');
+                }
+                else
+                {
+                    screen.set_pixel(i, '.');
+                }   
             }
         }
         Screen::clear_terminal();

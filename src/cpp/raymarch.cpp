@@ -6,7 +6,7 @@
 #include "raymarch.h"
 #include "Vector3d.h"
 
-char check_pixel(int pixel_index, Screen& screen, Camera& cam)
+bool check_pixel(int pixel_index, Screen& screen, Camera& cam, Vector3d& normal)
 {
     double ndc_x, ndc_y;
     screen.pi_to_ndc(pixel_index, ndc_x, ndc_y);
@@ -22,20 +22,14 @@ char check_pixel(int pixel_index, Screen& screen, Camera& cam)
         double SDF_sample = scene(sample_pos);
         if (SDF_sample < EPS)
         {
-            Vector3d normal = get_normal(sample_pos);
-            double diffuse = normal.Dot(Vector3d(0,1,-1));
-            if (diffuse >= 0.9)
-                return '#';
-            else if (diffuse >= 0.5)
-                return 'c';
-            else
-                return '.';
+            normal = get_normal(sample_pos);
+            return true;
         }
 
         total_dist += SDF_sample;
         step++;
     }
-    return screen.get_empty_char(); 
+    return false;
 }
 
 Vector3d get_normal(Vector3d pos)
@@ -44,7 +38,7 @@ Vector3d get_normal(Vector3d pos)
     double x = scene(pos + Vector3d(eps,0.0,0.0)) - scene(pos - Vector3d(eps,0.0,0.0));
     double y = scene(pos + Vector3d(0.0,eps,0.0)) - scene(pos - Vector3d(0.0,eps,0.0));
     double z = scene(pos + Vector3d(0.0,0.0,eps)) - scene(pos - Vector3d(0.0,0.0,eps));
-    return Vector3d(x,y,z).Normalize();
+    return Vector3d(x,y,z).Normalize() * -1.0;
 }
 
 double scene(Vector3d pos)
@@ -93,7 +87,6 @@ double scene(Vector3d pos)
     double sphere4 = sdf_sphere(pos - (sphere2_centre + sphere1_offset), 0.5);
 
     double box = sdf_box((pos- Vector3d(0,0,3)).rotate_x(cur_time * 50.0), Vector3d(0.5,0.5,0.5));
-    return box;
 
     double u = op_smooth_union(sphere1, sphere2, morph);
     u = op_smooth_union(u, sphere3, morph);
