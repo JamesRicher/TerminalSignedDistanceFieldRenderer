@@ -2,7 +2,7 @@
 #include "Screen.h"
 #include "Camera.h"
 #include "constants.h"
-#include "SDF.h"
+#include "sdf.h"
 #include "raymarch.h"
 #include "Vector3d.h"
 
@@ -93,6 +93,7 @@ double scene(Vector3d pos)
     double sphere4 = sdf_sphere(pos - (sphere2_centre + sphere1_offset), 0.5);
 
     double box = sdf_box((pos- Vector3d(0,0,3)).rotate_x(cur_time * 50.0), Vector3d(0.5,0.5,0.5));
+    return box;
 
     double u = op_smooth_union(sphere1, sphere2, morph);
     u = op_smooth_union(u, sphere3, morph);

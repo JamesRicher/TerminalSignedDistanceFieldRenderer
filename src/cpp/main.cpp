@@ -2,13 +2,15 @@
 #include <thread>
 #include <cmath>
 #include <csignal>
+#include <list>
 
 #include "Vector3d.h"
-#include "SDF.h"
+#include "sdf.h"
 #include "Camera.h"
 #include "Screen.h"
 #include "constants.h"
 #include "raymarch.h"
+#include "light.h"
 
 volatile bool STOP = false;
 void sigint_handler(int sig);
@@ -16,7 +18,6 @@ void sigint_handler(int sig);
 int main()
 {
     std::signal(SIGINT, sigint_handler);
-
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
@@ -25,6 +26,10 @@ int main()
     Camera cam(HALF_FOV_DEG_X, screen.get_aspect());
 
     Screen::hide_cursor();
+
+    // Setup lights
+    std::list<Light> lights;
+    lights.push_back(Light(Vector3d(1,1,1), 1.0));
 
     while(1)
     {
