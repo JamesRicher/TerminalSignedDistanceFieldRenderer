@@ -15,7 +15,7 @@ Screen::Screen(int height, double aspect)
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
 
-    aspect = width/height;
+    this->aspect = aspect;
 
     half_pixel_width = 1.0/(2.0*width); // in ndc space
     half_pixel_height = 1.0/(2.0*height); // in ndc space

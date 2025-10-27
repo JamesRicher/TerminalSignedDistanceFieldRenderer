@@ -20,8 +20,8 @@ int main()
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
-    //Screen screen(HEIGHT,ASPECT);
-    Screen screen = Screen();
+    Screen screen = Screen(HEIGHT,ASPECT);
+    //Screen screen = Screen();
     Camera cam(HALF_FOV_DEG_X, screen.get_aspect());
 
     Screen::hide_cursor();
@@ -30,9 +30,6 @@ int main()
     {
         if (STOP)
             break;
-
-        // move camera
-        cam.pos = cam.pos + Vector3d(0,0,-0.1);
 
         screen.clear(); 
         for (int i=0; i < screen.get_pixel_count(); i++)
