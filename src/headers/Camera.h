@@ -13,9 +13,14 @@ private:
     double near_plane_width;
     double near_plane_height;
 
+    Vector3d forward;
+    Vector3d up;
+    Vector3d right;
+
 public:
     Vector3d pos;
 
+    inline Vector3d get_right() { return right; }
     Camera(double x_fov_deg, double y_fov_deg, Vector3d pos);
 
     Vector3d ndc_to_world_pos(double ndc_x, double ndc_y);

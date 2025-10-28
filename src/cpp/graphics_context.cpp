@@ -10,12 +10,12 @@ GraphicsContext::GraphicsContext(int screen_height, double aspect,
         screen(screen_height, aspect),
         raymarcher(steps, dist, eps)
 {
-    lights.push_back(Light(Vector3d(1,1,1),1.0));
+    lights.push_back(Light(Vector3d(0,0,1),1.0));
 }
 
 void GraphicsContext::draw_frame()
 {
-    cam.pos = cam.pos + Vector3d(0,0,0.1);
+    //cam.pos = cam.pos + Vector3d(0,0,0.1);
     screen.clear_buffer();
 
     for (int i=0; i < screen.get_pixel_count(); i++)

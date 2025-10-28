@@ -88,6 +88,13 @@ struct Vector3d
         return Vector3d(std::round(v.x), std::round(v.y), std::round(v.z));
     }
 
+    static Vector3d Cross(Vector3d v1, Vector3d v2)
+    {
+        return Vector3d(v1.y*v2.z - v1.z*v2.y,
+                        v1.z*v2.x - v1.x*v2.z,
+                        v1.x*v2.y - v1.y*v2.x);
+    }
+
     // friends (helper functions)
     friend std::ostream& operator <<(std::ostream& os, const Vector3d& v);
 };

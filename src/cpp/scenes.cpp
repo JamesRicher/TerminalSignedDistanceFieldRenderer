@@ -1,9 +1,32 @@
 #include <chrono>
+#include <cmath>
 #include "sdf.h"
 #include "Vector3d.h"
 #include "constants.h"
 
 double get_current_time();
+
+double two_boxes_and_sphere(Vector3d pos)
+{
+    double cur_time = get_current_time();
+    double morph = 0.15;
+    Vector3d box_size = Vector3d(0.5,0.5,1);
+
+    double box1 = sdf_box(pos - Vector3d(-1.5,0,3), box_size);
+    double box2 = sdf_box(pos - Vector3d(1.5,0,3), box_size);
+    double box3 = sdf_box(pos - Vector3d(0,1.5,3), box_size);
+    double box4 = sdf_box(pos - Vector3d(0,-1.5,3), box_size);
+    double u = op_smooth_union(box1,box2,morph);
+    u = op_smooth_union(box3,u, morph);
+    u = op_smooth_union(box4,u,morph);
+
+    double speed = 2.0;
+    Vector3d sphere_pos = Vector3d(1.5*std::sin(speed * cur_time), 1.5*std::cos(speed * cur_time), 3);
+    double sphere = sdf_sphere(pos - sphere_pos, 1);
+    u = op_smooth_union(sphere, u, morph);
+
+    return u;
+}
 
 double spheres_around_a_cube(Vector3d pos)
 {
