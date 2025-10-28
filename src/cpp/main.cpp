@@ -11,6 +11,7 @@
 #include "constants.h"
 #include "raymarch.h"
 #include "light.h"
+#include "graphics_context.h"
 
 volatile bool STOP = false;
 void sigint_handler(int sig);
@@ -21,34 +22,22 @@ int main()
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
-    //Screen screen = Screen(HEIGHT,ASPECT);
-    Screen screen = Screen();
-    Camera cam(HALF_FOV_DEG_X, screen.get_aspect());
+    GraphicsContext gc = GraphicsContext(HEIGHT, ASPECT, HALF_FOV_DEG_X, Vector3d(0,0,0),
+                                         100, 500.0, 0.001);
 
     Screen::hide_cursor();
 
     // Setup lights
     std::list<Light> lights;
-    lights.push_back(Light(Vector3d(0,0,1), 1.0));
+    lights.push_back(Light(Vector3d(1,1,1), 1.0));
 
     while(1)
     {
         if (STOP)
             break;
 
-        screen.clear(); 
-        for (int i=0; i < screen.get_pixel_count(); i++)
-        {
-            Vector3d normal;
-            bool hit = check_pixel(i, screen, cam, normal);
-            if (hit)
-            {
-                double diffuse = lights.front().calculate_diffuse(normal);
-                screen.set_pixel(i, diffuse);
-            }
-        }
-        Screen::clear_terminal();
-        screen.print();
+        gc.draw_frame();
+
         std::this_thread::sleep_for(frame_duration);
     }
     return 0;

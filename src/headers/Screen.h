@@ -34,7 +34,7 @@ public:
     // output the screen to the terminal
     void print();
     // sets each entry in screen to EMPTY_CHAR
-    void clear();
+    void clear_buffer();
     // sets the value of a pixel at a given pixel
     bool set_pixel(int pixel_index, double brightness);
     void pi_to_ndc(int pi, double& ndc_x, double& ndc_y) const;

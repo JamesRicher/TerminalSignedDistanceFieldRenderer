@@ -8,17 +8,17 @@
 class Raymarcher
 {
 private:
-    Camera* cam;
-    Screen* screen;
+    const int MAX_STEPS = 200;
+    const double MAX_DIST = 500.0; 
+    const double EPS = 0.001;
 
 public:
     // constructors
-    Raymarcher(Camera* cam, Screen* screen);
-
+    Raymarcher(int steps, double dist, double eps);
+    
+    bool raymarch(Vector3d& cam_pos, Vector3d& pixel_pos, Vector3d& normal);
+    Vector3d get_normal(Vector3d pos);
+    double scene(Vector3d pos);
 };
-
-bool check_pixel(int pixel_index, Screen& screen, Camera& camera, Vector3d& normal);
-double scene(Vector3d pos);
-Vector3d get_normal(Vector3d pos);
 
 #endif

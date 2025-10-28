@@ -51,7 +51,7 @@ void Screen::print()
     }
 }
 
-void Screen::clear()
+void Screen::clear_buffer()
 {
     for (int i=0; i < pixels; i++)
         pixels_vector[i] = EMPTY_CHAR;
@@ -59,6 +59,9 @@ void Screen::clear()
 
 bool Screen::set_pixel(int pixel_index, double brightness)
 {
+    if (brightness >= 0.9)
+        pixels_vector[pixel_index] = '3';
+    return true;
     // get the corresponding char
     brightness = std::pow(brightness,2);
     int ASCII_index = std::floor(brightness * 7);

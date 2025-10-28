@@ -7,13 +7,15 @@
 #include "Vector3d.h"
 #include "scenes.h"
 
-bool check_pixel(int pixel_index, Screen& screen, Camera& cam, Vector3d& normal)
+Raymarcher::Raymarcher(int steps, double dist, double eps)
+    : MAX_STEPS(steps), MAX_DIST(dist), EPS(eps)
 {
-    double ndc_x, ndc_y;
-    screen.pi_to_ndc(pixel_index, ndc_x, ndc_y);
-    Vector3d pixel_wpos = cam.ndc_to_world_pos(ndc_x, ndc_y);
-    Vector3d ro = cam.pos;
-    Vector3d rd = (pixel_wpos - ro).Normalize();
+}
+
+bool Raymarcher::raymarch(Vector3d& cam_pos, Vector3d& pixel_wpos, Vector3d& normal)
+{
+    Vector3d ro = cam_pos;
+    Vector3d rd = (pixel_wpos - ro).Normalize(); 
     
     double total_dist = 0.0;
     int step = 0;
@@ -33,7 +35,7 @@ bool check_pixel(int pixel_index, Screen& screen, Camera& cam, Vector3d& normal)
     return false;
 }
 
-Vector3d get_normal(Vector3d pos)
+Vector3d Raymarcher::get_normal(Vector3d pos)
 {
     double eps = 0.0001;
     double x = scene(pos + Vector3d(eps,0.0,0.0)) - scene(pos - Vector3d(eps,0.0,0.0));
@@ -43,7 +45,8 @@ Vector3d get_normal(Vector3d pos)
 }
 
 
-double scene(Vector3d pos)
+double Raymarcher::scene(Vector3d pos)
 {
-    return radial_spheres(pos);
+    //return radial_spheres(pos);
+    return spheres_around_a_cube(pos);
 }

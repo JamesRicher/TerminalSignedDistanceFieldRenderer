@@ -16,7 +16,7 @@ private:
 public:
     Vector3d pos;
 
-    Camera(double x_fov_deg, double y_fov_deg);
+    Camera(double x_fov_deg, double y_fov_deg, Vector3d pos);
 
     Vector3d ndc_to_world_pos(double ndc_x, double ndc_y);
 };

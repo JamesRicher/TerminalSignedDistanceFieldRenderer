@@ -30,19 +30,20 @@ double spheres_around_a_cube(Vector3d pos)
 
 double radial_spheres(Vector3d pos)
 {
-    int sphere_count = 8;
-    double radius = 0.4;
+    double cur_time = get_current_time();
+    int sphere_count = 3;
+    double radius = 0.7;
 
-    Vector3d box_pos = Vector3d(0,0,5);
+    Vector3d box_pos = Vector3d(0,0,6);
+    double u = sdf_box((pos-box_pos).rotate_x(cur_time*50.0), Vector3d(0.5,0.5,0.5));
     double move_radius = 3.0;
     double morph = 0.1;
 
-    double u = sdf_box(pos - box_pos, Vector3d(0.5,0.5,0.5));
-
+    double interpolation = (std::sin(cur_time) + 1.0)/2.0;
     for (int i=0; i < sphere_count; i++)
     {
         double ang = 2*PI * i/static_cast<double>(sphere_count); 
-        Vector3d endpoint = Vector3d(std::sin(ang), std::cos(ang),0) * move_radius; 
+        Vector3d endpoint = Vector3d(std::sin(ang), std::cos(ang),0) * interpolation * move_radius + box_pos; 
         double s = sdf_sphere(pos - endpoint, radius);
         u = op_smooth_union(u,s,morph);
     }
