@@ -23,6 +23,7 @@ public:
     inline Vector3d get_right() { return right; }
     Camera(double x_fov_deg, double y_fov_deg, Vector3d pos);
 
+    void rotate(char axis, double ang);
     Vector3d ndc_to_world_pos(double ndc_x, double ndc_y);
 };
 

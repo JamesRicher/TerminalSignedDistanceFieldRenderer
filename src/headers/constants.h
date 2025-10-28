@@ -10,7 +10,7 @@ const double FRAME_TIME = 1.0/FPS;
 const auto START_TIME = std::chrono::high_resolution_clock::now();
 
 // authored constants options
-const int HEIGHT = 60;
+const int HEIGHT = 50;
 const double ASPECT = 1.0; // final aspect ratio of the image
 const double HALF_FOV_DEG_X = 45.0; // camera horizontal fov
 

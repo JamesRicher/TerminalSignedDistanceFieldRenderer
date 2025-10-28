@@ -26,3 +26,21 @@ Vector3d Camera::ndc_to_world_pos(double ndc_x, double ndc_y)
     Vector3d world_space_pos = view_space_pos + pos;
     return world_space_pos;
 }
+
+void Camera::rotate(char axis, double ang)
+{
+    switch (axis)
+    {
+        case 'x':
+            forward = forward.rotate_x(ang);
+            up = up.rotate_x(ang);
+            right = right.rotate_x(ang);
+            break;
+        case 'y':
+            break;
+        case 'z':
+            break;
+        default:
+            break;
+    }
+}
