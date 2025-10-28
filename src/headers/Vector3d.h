@@ -21,6 +21,9 @@ struct Vector3d
     inline Vector3d operator * (float A) const { return Vector3d(A*x, A*y, A*z); }
     inline Vector3d operator * (double A) const { return Vector3d(A*x, A*y, A*z); }
 
+    inline Vector3d operator * (Vector3d v) { return Vector3d(x*v.x, y*v.y, z*v.z); }
+    inline Vector3d operator / (Vector3d& v) { return Vector3d(x/v.x, y/v.y, z/v.z); }
+
     inline Vector3d operator + (const Vector3d& A) const { return Vector3d(x + A.x, y + A.y, z + A.z); }
     inline Vector3d operator - (const Vector3d& A) const { return *this + (A*(-1.0)); }
 
@@ -78,6 +81,11 @@ struct Vector3d
             v.y >= 0 ? v.y : -v.y,
             v.z >= 0 ? v.z : -v.z
         );
+    }
+
+    static Vector3d Round(const Vector3d& v)
+    {
+        return Vector3d(std::round(v.x), std::round(v.y), std::round(v.z));
     }
 
     // friends (helper functions)

@@ -23,3 +23,9 @@ double op_smooth_union(double d1, double d2, double k)
     double h = std::max(k-std::abs(d1-d2), 0.0);
     return std::min(d1,d2) - h*h*0.25/k;
 }
+
+Vector3d repeat_coords(Vector3d pos, Vector3d spacing)
+{
+    Vector3d repeated_pos = pos - (spacing*Vector3d::Round(pos/spacing));
+    return repeated_pos;
+}

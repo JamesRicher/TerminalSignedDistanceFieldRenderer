@@ -15,4 +15,7 @@ double op_smooth_union(double d1, double d2, double k);
 double op_smooth_intersection(double d1, double d2, double k);
 double op_smooth_subtraction(double d1, double d2, double k);
 
+// repeats the coords 
+Vector3d repeat_coords(Vector3d pos, Vector3d spacing);
+
 #endif

@@ -23,7 +23,7 @@ int main()
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
     GraphicsContext gc = GraphicsContext(HEIGHT, ASPECT, HALF_FOV_DEG_X, Vector3d(0,0,0),
-                                         100, 500.0, 0.001);
+                                         100, 20.0, 0.001);
 
     Screen::hide_cursor();
 

@@ -5,5 +5,7 @@
 
 double spheres_around_a_cube(Vector3d pos);
 double radial_spheres(Vector3d pos);
+double near_plane_test(Vector3d pos);
+double infinite_spheres(Vector3d pos);
 
 #endif

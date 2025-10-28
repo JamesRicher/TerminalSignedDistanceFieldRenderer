@@ -23,6 +23,10 @@ bool Raymarcher::raymarch(Vector3d& cam_pos, Vector3d& pixel_wpos, Vector3d& nor
     {
         Vector3d sample_pos = ro +rd*total_dist;
         double SDF_sample = scene(sample_pos);
+        /*
+        if (SDF_sample < 0)
+            return false;
+        */
         if (SDF_sample < EPS)
         {
             normal = get_normal(sample_pos);
@@ -48,5 +52,7 @@ Vector3d Raymarcher::get_normal(Vector3d pos)
 double Raymarcher::scene(Vector3d pos)
 {
     //return radial_spheres(pos);
-    return spheres_around_a_cube(pos);
+    //return near_plane_test(pos);
+    //return spheres_around_a_cube(pos);
+    return infinite_spheres(pos);
 }

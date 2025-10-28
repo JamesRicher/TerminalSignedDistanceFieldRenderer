@@ -51,6 +51,22 @@ double radial_spheres(Vector3d pos)
     return u;
 }
 
+double near_plane_test(Vector3d pos)
+{
+    double cur_time = get_current_time();
+    Vector3d c = Vector3d(0,0,cur_time);
+    double u = sdf_sphere(pos - c, 1.0);
+    return u;
+}
+
+double infinite_spheres(Vector3d pos)
+{
+    Vector3d offset = Vector3d(1.5,1.5,1.5);
+    Vector3d new_pos = repeat_coords(pos - offset, Vector3d(3,3,3));// + Vector3d(1.5,0,1.5);
+    return sdf_sphere(new_pos, 0.7);
+}
+
+
 double get_current_time()
 {
     auto now = std::chrono::high_resolution_clock::now();
