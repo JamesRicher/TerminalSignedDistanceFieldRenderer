@@ -10,7 +10,7 @@ GraphicsContext::GraphicsContext(int screen_height, double aspect,
         screen(screen_height, aspect),
         raymarcher(steps, dist, eps)
 {
-
+    lights.push_back(Light(Vector3d(1,1,1),1.0));
 }
 
 void GraphicsContext::draw_frame()
@@ -21,18 +21,30 @@ void GraphicsContext::draw_frame()
     {
         Vector3d normal;
         double ndc_x, ndc_y;
-        screen.pi_to_ndc(i, ndc_x, ndc_y);
+        screen.pi_to_ndc(i,ndc_x,ndc_y);
+
         Vector3d pixel_wpos = cam.ndc_to_world_pos(ndc_x, ndc_y);
         bool hit = raymarcher.raymarch(cam.pos, pixel_wpos, normal); 
 
         if (hit)
         {
-            screen.set_pixel(i,1);
+            double light = get_normalised_light(normal);
+            screen.set_pixel(i,light);
         }   
     }
 
     Screen::clear_terminal();
-    screen.print();
+    screen.print_buffer();
+}
+
+double GraphicsContext::get_normalised_light(const Vector3d& normal)
+{
+    double light = 0;
+    for (Light l : lights)
+    {
+        light += l.calculate_diffuse(normal);
+    }
+    return light;
 }
 
 GraphicsContext::~GraphicsContext()

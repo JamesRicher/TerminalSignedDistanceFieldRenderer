@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 // only need these for getting screen width and height
 #include <sys/ioctl.h> //ioctl() and TIOCGWINSZ
@@ -19,6 +20,8 @@ Screen::Screen(int height, double aspect)
 
     half_pixel_width = 1.0/(2.0*width); // in ndc space
     half_pixel_height = 1.0/(2.0*height); // in ndc space
+    
+    gradient_size = gradient.size();
 }
 
 // makes fullscreen
@@ -38,7 +41,7 @@ Screen::Screen()
     half_pixel_height = 1.0/(2.0*height); // in ndc space
 }
 
-void Screen::print()
+void Screen::print_buffer()
 {
     for (int row=0; row<height; row++)
     {
@@ -59,17 +62,10 @@ void Screen::clear_buffer()
 
 bool Screen::set_pixel(int pixel_index, double brightness)
 {
-    if (brightness >= 0.9)
-        pixels_vector[pixel_index] = '3';
-    return true;
-    // get the corresponding char
-    brightness = std::pow(brightness,2);
-    int ASCII_index = std::floor(brightness * 7);
-    char c = gradient.c_str()[ASCII_index];
-
     if (pixel_index >= 0 && pixel_index < pixels)
     {
-        pixels_vector[pixel_index] = c;
+        int gradient_index = std::floor((std::max(brightness-0.0001,0.0)) * gradient_size);
+        pixels_vector[pixel_index] = gradient[gradient_index];
         return true;
     }
     return false;

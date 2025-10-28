@@ -9,7 +9,8 @@ class Screen
 private:
     const char EMPTY_CHAR = ' ';
     const double CHAR_ASPECT = 2.0;
-    const std::string gradient = ".,:ilw#";
+    const std::string gradient = ".:-=+*%#@"; //9
+    int gradient_size;
 
     // the width and height of the screen in pixels
     int width;
@@ -32,7 +33,7 @@ public:
     Screen();
 
     // output the screen to the terminal
-    void print();
+    void print_buffer();
     // sets each entry in screen to EMPTY_CHAR
     void clear_buffer();
     // sets the value of a pixel at a given pixel
