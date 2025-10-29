@@ -26,9 +26,12 @@ int main()
     const double ASPECT = 1.0;
     const double HALF_FOV_DEG_X = 45.0;
     const Vector3d CAM_START_POS = Vector3d(0,0,0);
+    const int MAX_STEPS = 200;
+    const double MAX_DIST = 30.0;
+    const double EPS = 0.001;
 
     GraphicsContext gc = GraphicsContext(HEIGHT, ASPECT, HALF_FOV_DEG_X, CAM_START_POS,
-                                         200, 30.0, 0.001);
+                                         MAX_STEPS, MAX_DIST, EPS);
 
     Screen::hide_cursor();
 
