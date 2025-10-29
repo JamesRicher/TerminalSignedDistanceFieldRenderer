@@ -23,16 +23,18 @@ void GraphicsContext::draw_frame()
     for (int i=0; i < screen.get_pixel_count(); i++)
     {
         Vector3d normal;
+        double hit_distance;
         double ndc_x, ndc_y;
         screen.pi_to_ndc(i,ndc_x,ndc_y);
 
         Vector3d pixel_wpos = cam.ndc_to_world_pos(ndc_x, ndc_y);
-        bool hit = raymarcher.raymarch(cam.pos, pixel_wpos, normal); 
+        bool hit = raymarcher.raymarch(cam.pos, pixel_wpos, normal, hit_distance); 
 
         if (hit)
         {
             double light = get_normalised_light(normal);
-            screen.set_pixel(i,light);
+            double depth_percentage = hit_distance / raymarcher.get_max_dist();
+            screen.set_pixel(i,light, depth_percentage);
         }   
     }
 

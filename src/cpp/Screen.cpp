@@ -15,6 +15,7 @@ Screen::Screen(int height, double aspect)
     width = height * aspect * CHAR_ASPECT;
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
+    modifiers_vector = std::vector<std::string>(pixels, "");
 
     this->aspect = aspect;
 
@@ -34,6 +35,7 @@ Screen::Screen()
 
     pixels = width * height;
     pixels_vector = std::vector<char>(pixels, EMPTY_CHAR);
+    modifiers_vector = std::vector<std::string>(pixels, "");
 
     aspect = (width/height) / CHAR_ASPECT;
 
@@ -47,8 +49,11 @@ void Screen::print_buffer()
     {
         for (int col=0; col<width; col++)
         {
+            // reset all ANSI modifiers relating to styles and colours
+            std::cout << "\x1B[0m";
+
             int index = col + row*width;
-             std::cout << pixels_vector[index];
+            std::cout << modifiers_vector[index] << pixels_vector[index];
         }
         std::cout << std::endl;
     }
@@ -57,15 +62,26 @@ void Screen::print_buffer()
 void Screen::clear_buffer()
 {
     for (int i=0; i < pixels; i++)
+    {
         pixels_vector[i] = EMPTY_CHAR;
+        modifiers_vector[i] = "";
+    }
 }
 
-bool Screen::set_pixel(int pixel_index, double brightness)
+bool Screen::set_pixel(int pixel_index, double brightness, double depth_percentage)
 {
     if (pixel_index >= 0 && pixel_index < pixels)
     {
         int gradient_index = std::floor((std::max(brightness-0.0001,0.0)) * gradient_size);
         pixels_vector[pixel_index] = gradient[gradient_index];
+
+        if (depth_percentage > 0.666)
+            modifiers_vector[pixel_index] = "\u001b[2m";
+        else if (depth_percentage > 0.333)
+            modifiers_vector[pixel_index] = "";
+        else
+            modifiers_vector[pixel_index] = "\u001b[1m";
+
         return true;
     }
     return false;

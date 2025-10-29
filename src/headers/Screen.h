@@ -26,6 +26,7 @@ private:
     
     // the actual character representation of the screen
     std::vector<char> pixels_vector;
+    std::vector<std::string> modifiers_vector;
 
 public:
     // constructors
@@ -37,7 +38,7 @@ public:
     // sets each entry in screen to EMPTY_CHAR
     void clear_buffer();
     // sets the value of a pixel at a given pixel
-    bool set_pixel(int pixel_index, double brightness);
+    bool set_pixel(int pixel_index, double brightness, double depth_percentage);
     void pi_to_ndc(int pi, double& ndc_x, double& ndc_y) const;
 
     // getters

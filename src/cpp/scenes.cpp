@@ -84,9 +84,9 @@ double near_plane_test(Vector3d pos)
 
 double infinite_spheres(Vector3d pos)
 {
-    Vector3d offset = Vector3d(1.5,1.5,1.5);
-    Vector3d new_pos = repeat_coords(pos - offset, Vector3d(3,3,3));// + Vector3d(1.5,0,1.5);
-    return sdf_sphere(new_pos, 0.7);
+    Vector3d offset = Vector3d(3,3,3);
+    Vector3d new_pos = repeat_coords(pos - offset, Vector3d(6,6,6));// + Vector3d(1.5,0,1.5);
+    return sdf_sphere(new_pos, 1.7);
 }
 
 

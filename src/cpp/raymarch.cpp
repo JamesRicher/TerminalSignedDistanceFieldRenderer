@@ -12,7 +12,7 @@ Raymarcher::Raymarcher(int steps, double dist, double eps)
 {
 }
 
-bool Raymarcher::raymarch(Vector3d& cam_pos, Vector3d& pixel_wpos, Vector3d& normal)
+bool Raymarcher::raymarch(Vector3d& cam_pos, Vector3d& pixel_wpos, Vector3d& normal, double& dist)
 {
     Vector3d ro = cam_pos;
     Vector3d rd = (pixel_wpos - ro).Normalize(); 
@@ -30,6 +30,7 @@ bool Raymarcher::raymarch(Vector3d& cam_pos, Vector3d& pixel_wpos, Vector3d& nor
         if (SDF_sample < EPS)
         {
             normal = get_normal(sample_pos);
+            dist = total_dist;
             return true;
         }
 

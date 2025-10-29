@@ -12,7 +12,7 @@ const auto START_TIME = std::chrono::high_resolution_clock::now();
 const double DEG_TO_RAD = 180.0/PI;
 
 // authored constants options
-const int HEIGHT = 50;
+const int HEIGHT = 70;
 const double ASPECT = 1.0; // final aspect ratio of the image
 const double HALF_FOV_DEG_X = 45.0; // camera horizontal fov
 
