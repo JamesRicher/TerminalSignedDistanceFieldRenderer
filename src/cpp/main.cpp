@@ -22,8 +22,13 @@ int main()
     std::ios_base::sync_with_stdio(false);
     std::chrono::duration<double> frame_duration(FRAME_TIME);
 
-    GraphicsContext gc = GraphicsContext(HEIGHT, ASPECT, HALF_FOV_DEG_X, Vector3d(0,0,0),
-                                         100, 20.0, 0.001);
+    const int HEIGHT = 60;
+    const double ASPECT = 1.0;
+    const double HALF_FOV_DEG_X = 45.0;
+    const Vector3d CAM_START_POS = Vector3d(0,0,0);
+
+    GraphicsContext gc = GraphicsContext(HEIGHT, ASPECT, HALF_FOV_DEG_X, CAM_START_POS,
+                                         200, 30.0, 0.001);
 
     Screen::hide_cursor();
 
