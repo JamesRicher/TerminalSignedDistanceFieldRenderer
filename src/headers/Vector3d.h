@@ -45,6 +45,8 @@ struct Vector3d
     float Length() const;
     Vector3d Normalize() const;
     Vector3d rotate_x(double ang);
+    Vector3d rotate_y(double ang);
+    Vector3d rotate_z(double ang);
 
     // static functions
     static Vector3d Max(const Vector3d &v, float a)

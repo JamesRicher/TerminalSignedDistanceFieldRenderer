@@ -6,7 +6,7 @@
 
 double get_current_time();
 
-double two_boxes_and_sphere(Vector3d pos)
+double four_boxes_and_sphere(Vector3d pos)
 {
     double cur_time = get_current_time();
     double morph = 0.15;

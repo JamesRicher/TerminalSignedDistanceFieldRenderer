@@ -9,6 +9,8 @@ const double FRAME_TIME = 1.0/FPS;
 
 const auto START_TIME = std::chrono::high_resolution_clock::now();
 
+const double DEG_TO_RAD = 180.0/PI;
+
 // authored constants options
 const int HEIGHT = 50;
 const double ASPECT = 1.0; // final aspect ratio of the image

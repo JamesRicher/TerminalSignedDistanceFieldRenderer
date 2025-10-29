@@ -16,8 +16,8 @@ GraphicsContext::GraphicsContext(int screen_height, double aspect,
 void GraphicsContext::draw_frame()
 {
     // move and rotate the camera
-    cam.rotate('x', 1);
-    //cam.pos = cam.pos + Vector3d(0,0,0.1);
+    cam.rotate('z', 1);
+    cam.pos = cam.pos + Vector3d(0,0,0.1);
     screen.clear_buffer();
 
     for (int i=0; i < screen.get_pixel_count(); i++)

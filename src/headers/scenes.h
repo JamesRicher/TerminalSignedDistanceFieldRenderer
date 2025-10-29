@@ -3,7 +3,7 @@
 
 #include "Vector3d.h"
 
-double two_boxes_and_sphere(Vector3d pos);
+double four_boxes_and_sphere(Vector3d pos);
 double spheres_around_a_cube(Vector3d pos);
 double radial_spheres(Vector3d pos);
 double near_plane_test(Vector3d pos);

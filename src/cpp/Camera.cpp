@@ -37,8 +37,14 @@ void Camera::rotate(char axis, double ang)
             right = right.rotate_x(ang);
             break;
         case 'y':
+            forward = forward.rotate_y(ang);
+            up = up.rotate_y(ang);
+            right = right.rotate_y(ang);
             break;
         case 'z':
+            forward = forward.rotate_z(ang);
+            up = up.rotate_z(ang);
+            right = right.rotate_z(ang);
             break;
         default:
             break;
