@@ -5,4 +5,4 @@ A terminal based implementation of SDF rendering with raymarching.
 - Dynamic camera that can be moved and rotated
 - Domain repetition to render primitives infinitely
 
-![infinite spheres](https://media.giphy.com/media/RNrM605Lv6txym3Tla/giphy.gif)
+![infinite spheres](https://media.giphy.com/media/q4cGa94FGaBWc0Xxmh/giphy.gif)
