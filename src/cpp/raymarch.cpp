@@ -54,7 +54,7 @@ double Raymarcher::scene(Vector3d pos)
 {
     //return radial_spheres(pos);
     //return near_plane_test(pos);
-    //return spheres_around_a_cube(pos);
-    return infinite_spheres(pos);
-    //return four_boxes_and_sphere(pos);
+    return spheres_around_a_cube(pos);
+    //return infinite_spheres(pos);
+    return four_boxes_and_sphere(pos);
 }
