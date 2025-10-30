@@ -6,3 +6,7 @@ A terminal based implementation of SDF rendering with raymarching.
 - Domain repetition to render primitives infinitely
 
 ![infinite spheres](https://media.giphy.com/media/q4cGa94FGaBWc0Xxmh/giphy.gif)
+
+## Sources
+- [SDF operations](https://iquilezles.org/articles/distfunctions/)
+- [Makefile base](https://makefiletutorial.com/)
